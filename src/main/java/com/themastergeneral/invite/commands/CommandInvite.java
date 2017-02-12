@@ -27,9 +27,7 @@ public class CommandInvite extends CommandBase
     {
         aliases = Lists.newArrayList(Main.MODID, "invite", "INVITE");
     }
-
     private final List<String> aliases;
-    
 	public int compareTo(ICommand o) 
 	{
 		return 0;
@@ -39,8 +37,8 @@ public class CommandInvite extends CommandBase
 	{ 
 		return "invite";
 	}
-	@Nonnull
-	public String getCommandUsage(ICommandSender sender) 
+	@Override
+	public String getUsage(ICommandSender sender) 
 	{
 		return "invite <username>";
 	}
@@ -83,5 +81,10 @@ public class CommandInvite extends CommandBase
 	public List<String> getCommandAliases() 
 	{
 		return aliases;
+	}
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
