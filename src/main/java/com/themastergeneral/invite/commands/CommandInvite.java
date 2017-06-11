@@ -22,7 +22,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 public class CommandInvite extends CommandBase
 { 
     protected String fullEntityName;
-    
     public CommandInvite()
     {
         aliases = Lists.newArrayList(Main.MODID, "invite", "INVITE");
@@ -46,18 +45,13 @@ public class CommandInvite extends CommandBase
 	{
 		if (args.length == 1 && args[0].length() > 0)
         {
-            GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(args[0]);
-
+			GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(args[0]);
             if (gameprofile == null)
             {
-                throw new CommandException("Failed to add user to the server list.", new Object[] {args[0]});
+                throw new CommandException("commands.whitelist.add.failed", new Object[] {args[0]});
             }
-            else
-            {
-            	server.getPlayerList().addWhitelistedPlayer(gameprofile);
-            	server.getPlayerList().reloadWhitelist();
-            	notifyCommandListener(sender, this, "commands.whitelist.add.success", new Object[] {args[0]});
-            }
+            server.getPlayerList().addWhitelistedPlayer(gameprofile);
+            notifyCommandListener(sender, this, "commands.whitelist.add.success", new Object[] {args[0]});
         }
         else
         {
@@ -83,8 +77,12 @@ public class CommandInvite extends CommandBase
 		return aliases;
 	}
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() 
+	{
+		return "invite";
 	}
+	public int getRequiredPermissionLevel()
+    {
+        return 0;
+    }
 }
