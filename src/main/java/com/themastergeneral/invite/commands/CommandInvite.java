@@ -19,70 +19,71 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class CommandInvite extends CommandBase
-{ 
-    protected String fullEntityName;
-    public CommandInvite()
-    {
-        aliases = Lists.newArrayList(Main.MODID, "invite", "INVITE");
-    }
-    private final List<String> aliases;
-	public int compareTo(ICommand o) 
-	{
+public class CommandInvite extends CommandBase {
+	protected String fullEntityName;
+
+	public CommandInvite() {
+		aliases = Lists.newArrayList(Main.MODID, "invite", "INVITE");
+	}
+
+	private final List<String> aliases;
+
+	public int compareTo(ICommand o) {
 		return 0;
 	}
+
 	@Nonnull
-	public String getCommandName() 
-	{ 
+	public String getCommandName() {
 		return "invite";
 	}
+
 	@Override
-	public String getUsage(ICommandSender sender) 
-	{
+	public String getUsage(ICommandSender sender) {
 		return "invite <username>";
 	}
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
-	{
-		if (args.length == 1 && args[0].length() > 0)
-        {
-			GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(args[0]);
-            if (gameprofile == null)
-            {
-                throw new CommandException("commands.whitelist.add.failed", new Object[] {args[0]});
-            }
-            server.getPlayerList().addWhitelistedPlayer(gameprofile);
-            notifyCommandListener(sender, this, "commands.whitelist.add.success", new Object[] {args[0]});
-        }
-        else
-        {
-            throw new WrongUsageException("/invite <username>", new Object[0]);
-        }
-		
+
+	public void execute(MinecraftServer server, ICommandSender sender,
+			String[] args) throws CommandException {
+		if (args.length == 1 && args[0].length() > 0) {
+			GameProfile gameprofile = server.getPlayerProfileCache()
+					.getGameProfileForUsername(args[0]);
+			if (gameprofile == null) {
+				throw new CommandException("commands.whitelist.add.failed",
+						new Object[] { args[0] });
+			}
+			server.getPlayerList().addWhitelistedPlayer(gameprofile);
+			notifyCommandListener(sender, this,
+					"commands.whitelist.add.success", new Object[] { args[0] });
+		} else {
+			throw new WrongUsageException("/invite <username>", new Object[0]);
+		}
+
 	}
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) 
-	{
+
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
 		return true;
 	}
-	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) 
-	{
+
+	public List<String> getTabCompletionOptions(MinecraftServer server,
+			ICommandSender sender, String[] args, BlockPos pos) {
 		return null;
 	}
-	public boolean isUsernameIndex(String[] args, int index) 
-	{
+
+	public boolean isUsernameIndex(String[] args, int index) {
 		return false;
 	}
+
 	@Nonnull
-	public List<String> getCommandAliases() 
-	{
+	public List<String> getCommandAliases() {
 		return aliases;
 	}
+
 	@Override
-	public String getName() 
-	{
+	public String getName() {
 		return "invite";
 	}
-	public int getRequiredPermissionLevel()
-    {
-        return 0;
-    }
+
+	public int getRequiredPermissionLevel() {
+		return 0;
+	}
 }
